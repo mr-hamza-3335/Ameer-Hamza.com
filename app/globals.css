@@ -1,26 +1,275 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 263 75% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 263 75% 60%;
+    --radius: 0.5rem;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 263 75% 40%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 263 75% 40%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-400;
+}
+
+/* Glow text effect */
+.glow-text {
+  text-shadow: 0 0 10px rgba(180, 120, 255, 0.5);
+}
+
+/* Glass effect */
+.glass-effect {
+  @apply backdrop-blur-sm bg-black/20 border border-white/10;
+}
+
+/* Animated underline */
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(90deg, theme("colors.purple.500"), theme("colors.purple.400"));
+  transition: width 0.3s ease;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
+
+/* Gradient border */
+.gradient-border {
+  position: relative;
+  background: transparent;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  z-index: -1;
+  background: linear-gradient(90deg, theme("colors.purple.500"), theme("colors.purple.400"));
+  border-radius: inherit;
+}
+
+/* Hover button effect */
+.hover-button {
+  transition: all 0.3s ease;
+}
+
+.hover-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(180, 120, 255, 0.4);
+}
+
+/* Tilt card effect */
+.tilt-card {
+  transition: transform 0.3s ease;
+}
+
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+}
+
+/* Animate in */
+.animate-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover card */
+.hover-card {
+  transition: transform 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Animation keyframes */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* Purple button styles */
+.purple-button {
+  background-color: #9333ea !important;
+  color: white !important;
+}
+.purple-button:hover {
+  background-color: #7e22ce !important;
+}
+
+/* Override default button styles */
+.btn,
+.button,
+button[type="submit"],
+button[type="button"],
+button:not([class*="bg-"]):not([class*="border-"]):not([variant="outline"]):not([variant="ghost"]):not(
+    [variant="link"]
+  ):not([variant="secondary"]):not([variant="destructive"]) {
+  background-color: #9333ea !important;
+  color: white !important;
+}
+
+.btn:hover,
+.button:hover,
+button[type="submit"]:hover,
+button[type="button"]:hover,
+button:not([class*="bg-"]):not([class*="border-"]):not([variant="outline"]):not([variant="ghost"]):not(
+    [variant="link"]
+  ):not([variant="secondary"]):not([variant="destructive"]):hover {
+  background-color: #7e22ce !important;
+}
+
+/* Make sure all buttons with variant="default" are purple */
+button[variant="default"],
+.btn-default,
+.button-default {
+  background-color: #9333ea !important;
+  color: white !important;
+}
+
+button[variant="default"]:hover,
+.btn-default:hover,
+.button-default:hover {
+  background-color: #7e22ce !important;
+}
+
+/* Ensure all primary buttons are purple */
+.btn-primary,
+.button-primary {
+  background-color: #9333ea !important;
+  color: white !important;
+}
+
+.btn-primary:hover,
+.button-primary:hover {
+  background-color: #7e22ce !important;
+}
+
+/* Make sure all buttons with the Button component are purple */
+.button-root {
+  background-color: #9333ea !important;
+  color: white !important;
+}
+
+.button-root:hover {
+  background-color: #7e22ce !important;
 }
